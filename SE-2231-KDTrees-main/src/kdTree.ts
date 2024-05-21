@@ -63,7 +63,7 @@ class KDTree {
 
     private containsNode(node: Node | null, p: Point2D, depth: number): boolean {
         if (node === null) return false;
-        if (node.value.equals(p)) return true; // Assume Point2D has an equals method
+        if (node.value.equals(p)) return true;
 
         const axis = depth % 2 === 0 ? "x" : "y";
         if (p[axis] < node.value[axis]) {

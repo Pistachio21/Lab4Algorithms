@@ -2,49 +2,46 @@ import Point2D from "./doNotTouch/point2D";
 import RectHV from "./doNotTouch/rectHV";
 import p5 from 'p5'
 
-class PointSET { //remember this is brute force algorithm (meaning lotsa for loops)
-    collectionPoints : Set<Point2D>
+class PointSET {
+    collectionPoints : Point2D[]
     public constructor() {
-        this.collectionPoints = new Set<Point2D>()
+        this.collectionPoints = []
 
     } // construct an empty set of points
     public isEmpty(): boolean {
-        if (this.collectionPoints.size === 0) {
+        if (this.collectionPoints.length === 0) {
             return true
         } else {
             return false
         }
     } // is the set empty?
     public size(): number {
-        return this.collectionPoints.size
+        return this.collectionPoints.length
 
     } // number of points in the set
     public insert(p: Point2D): void {
         if (!this.contains(p)) {
-            this.collectionPoints.add(p)
+            this.collectionPoints.push(p)
         } 
     } // add the point to the set (if it is not already in the set)
     public contains(p: Point2D): boolean {
-        if (p === null) {
-            throw new Error('P is not defined.')
-        }
-       return this.collectionPoints.has(p)
+       return this.collectionPoints.includes(p)
     } // does the set contain point p?
     public draw(p: p5): void {
-        for (let point of this.collectionPoints) {
-            point.draw(p);
+        for (let i = 0; i < this.collectionPoints.length; i++) {
+            this.collectionPoints[i].draw(p);
         }
 
     } // draw all points to p5
     public range(rect: RectHV): Point2D[] {
         let pointsRange: Point2D[] = []
-        for (let point of this.collectionPoints) {
-            if (point.x >= rect.xmin && 
-                point.x <= rect.xmax && 
-                point.y >= rect.ymin && 
-                point.y <= rect.ymax
+        for (let i = 0; i < this.collectionPoints.length; i++) {
+            if (this.collectionPoints[i].x >= rect.xmin && 
+                this.collectionPoints[i].x <= rect.xmax && 
+                this.collectionPoints[i].y >= rect.ymin && 
+                this.collectionPoints[i].y <= rect.ymax
             ) {
-                pointsRange.push(point)//ask aaron if tsakto ni
+                pointsRange.push(this.collectionPoints[i])
             }
         }
         return pointsRange
